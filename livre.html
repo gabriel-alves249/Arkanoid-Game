@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arkanoid - Modo Livre</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-info">
+            <div class="info-item">
+                <span class="info-label">Blocos</span>
+                <span class="info-value" id="blocks-display">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Tempo</span>
+                <span class="info-value" id="time-display">0:00</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Pontuação</span>
+                <span class="info-value" id="score-display">0</span>
+            </div>
+        </div>
+
+        <canvas id="gameCanvas" width="480" height="600"></canvas>
+
+        <div class="abilities-container" id="abilities-container"></div>
+
+        <div class="back-button-container">
+            <button class="back-button" onclick="window.location.href='index.html'">Voltar ao Menu</button>
+        </div>
+
+       <div class="video-container">
+            <video autoplay loop muted playsinline>
+                <source src="arkanoid.mp4" type="video/mp4">
+                <source src="arkanoid.mp4" type="video/webm">
+            </video>
+        </div>
+      </div>
+
+    <script src="scriptlivre.js"></script>
+</body>
+</html>

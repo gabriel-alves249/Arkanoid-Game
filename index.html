@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arkanoid - Menu Principal</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="menu-container">
+        <h2>🎮 Arkanoid</h2>
+        <p style="text-align: center; opacity: 0.8; margin-bottom: 20px;">
+            Quebre os blocos e divirta-se!
+        </p>
+
+        <button onclick="window.location.href='game.html'">Jogar Arkanoid</button>
+        <button onclick="window.location.href='livre.html'">Modo Livre</button>
+        <button onclick="window.location.href='config.html'">Configurações</button>
+        <button onclick="window.location.href='sobre.html'">Sobre</button>
+
+        <div class="video-container" style="margin-top: 40px;">
+            <video autoplay loop muted playsinline>
+                <source src="arkanoid.mp4" type="video/mp4">
+                <source src="arkanoid.webm" type="video/webm">
+            </video>
+        </div>
+    </div>
+</body>
+</html>

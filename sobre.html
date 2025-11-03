@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sobre - Arkanoid</title>
+  <link rel="stylesheet" href="estilo.css" />
+  <style>
+    /* ========== ANIMAÇÃO BOM JOGO ========== */
+    .bom-jogo-container {
+      text-align: center;
+      margin: 40px 0;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .bom-jogo {
+      display: inline-flex;
+      gap: 8px;
+      font-size: 48px;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+    }
+    
+    .letra {
+      display: inline-block;
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+    
+    /* Cores do arco-íris para cada letra */
+    .letra:nth-child(1) { color: #FF0000; animation-delay: 0s; }    /* Vermelho */
+    .letra:nth-child(2) { color: #FF7F00; animation-delay: 0.1s; }  /* Laranja */
+    .letra:nth-child(3) { color: #FFFF00; animation-delay: 0.2s; }  /* Amarelo */
+    .letra:nth-child(4) { color: #00FF00; animation-delay: 0.3s; }  /* Verde */
+    .letra:nth-child(5) { color: #0000FF; animation-delay: 0.4s; }  /* Azul */
+    .letra:nth-child(6) { color: #4B0082; animation-delay: 0.5s; }  /* Anil */
+    .letra:nth-child(7) { color: #9400D3; animation-delay: 0.6s; }  /* Violeta */
+    .letra:nth-child(8) { color: #FF0000; animation-delay: 0.7s; }  /* Vermelho */
+    
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      25% {
+        transform: translateY(-30px) scale(1.2);
+      }
+      50% {
+        transform: translateY(0) scale(1);
+      }
+      75% {
+        transform: translateY(-15px) scale(1.1);
+      }
+    }
+    
+    /* ========== SEÇÕES DE INFORMAÇÃO ========== */
+    .info-section {
+      margin: 30px 0;
+      padding: 25px;
+      background: rgba(166, 247, 80, 0.1);
+      border: 2px solid #a6f750;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(166, 247, 80, 0.3);
+      animation: borderPulseInfo 3s linear infinite;
+    }
+    
+    @keyframes borderPulseInfo {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(166, 247, 80, 0.3),
+                    0 0 40px rgba(166, 247, 80, 0.2);
+      }
+      50% {
+        box-shadow: 0 0 30px rgba(166, 247, 80, 0.5),
+                    0 0 60px rgba(166, 247, 80, 0.3),
+                    0 0 80px rgba(166, 247, 80, 0.2);
+      }
+    }
+    
+    .info-section h3 {
+      color: #a6f750;
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 24px;
+      border-bottom: 2px solid #a6f750;
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .info-content {
+      color: #a6f750;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+    
+    .info-content ul {
+      margin: 15px 0;
+      padding-left: 25px;
+    }
+    
+    .info-content li {
+      margin: 10px 0;
+      position: relative;
+    }
+    
+    .info-content li::marker {
+      color: #a6f750;
+    }
+    
+    .info-subsection {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-left: 4px solid #a6f750;
+      border-radius: 8px;
+    }
+    
+    .info-subsection h4 {
+      color: #a6f750;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    /* ========== SISTEMA DE FEEDBACK (ESTRELAS) ========== */
+    .feedback-section {
+      margin: 40px 0;
+      padding: 30px;
+      background: rgba(166, 247, 80, 0.1);
+      border: 2px solid #a6f750;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(166, 247, 80, 0.3);
+      animation: borderPulseInfo 3s linear infinite;
+      text-align: center;
+    }
+    
+    .feedback-section h3 {
+      color: #a6f750;
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-size: 28px;
+      display: block;
+      border-bottom: 2px solid #a6f750;
+      padding-bottom: 15px;
+    }
+    
+    .stars-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 25px 0;
+    }
+    
+    .star {
+      font-size: 50px;
+      cursor: pointer;
+      color: rgba(166, 247, 80, 0.3);
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+    
+    .star:hover {
+      transform: scale(1.2);
+      color: #FFD700;
+    }
+    
+    .star.active {
+      color: #FFD700;
+      animation: starPulse 0.5s ease;
+    }
+    
+    @keyframes starPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+    
+    .feedback-message {
+      margin-top: 25px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      color: #a6f750;
+      font-size: 18px;
+      font-weight: bold;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    
+    .feedback-message.show {
+      opacity: 1;
+    }
+    
+    .feedback-count {
+      margin-top: 20px;
+      color: #a6f750;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    
+    /* ========== RESPONSIVIDADE ========== */
+    @media (max-width: 768px) {
+      .bom-jogo {
+        font-size: 32px;
+        gap: 5px;
+      }
+      
+      .info-section {
+        padding: 20px;
+      }
+      
+      .info-section h3 {
+        font-size: 20px;
+      }
+      
+      .info-content {
+        font-size: 14px;
+      }
+      
+      .star {
+        font-size: 40px;
+      }
+      
+      .feedback-section h3 {
+        font-size: 24px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .bom-jogo {
+        font-size: 24px;
+        gap: 3px;
+      }
+      
+      .stars-container {
+        gap: 10px;
+      }
+      
+      .star {
+        font-size: 35px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-container">
+    <h2>ℹ️ Sobre o Jogo</h2>
+    
+    <!-- ========== ANIMAÇÃO BOM JOGO ========== -->
+    <div class="bom-jogo-container">
+      <div class="bom-jogo">
+        <span class="letra">B</span>
+        <span class="letra">O</span>
+        <span class="letra">M</span>
+        <span class="letra"> </span>
+        <span class="letra">J</span>
+        <span class="letra">O</span>
+        <span class="letra">G</span>
+        <span class="letra">O</span>
+      </div>
+    </div>
+    
+    <!-- ========== SEÇÃO: SOBRE O ARKANOID ========== -->
+    <div class="info-section">
+      <h3>🎮 Sobre o Arkanoid</h3>
+      <div class="info-content">
+        <p>
+          Arkanoid é um clássico jogo de arcade onde você controla uma raquete para rebater uma bolinha e destruir blocos coloridos. O objetivo é quebrar todos os blocos sem deixar a bolinha cair!
+        </p>
+        <p>
+          <strong>Recursos do Jogo:</strong>
+        </p>
+        <ul>
+          <li>🌈 <strong>Blocos coloridos</strong> com sistema de arco-íris aleatório</li>
+          <li>⚪ <strong>Blocos brancos especiais</strong> que exigem 2 hits e liberam habilidades</li>
+          <li>⚡ <strong>3 Habilidades únicas</strong> que podem ser ativadas durante o jogo</li>
+          <li>📊 <strong>Sistema de pontuação</strong> e progressão de fases</li>
+          <li>🎯 <strong>Dificuldade progressiva</strong> com velocidade crescente</li>
+          <li>💾 <strong>Salvamento automático</strong> de configurações e recordes</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- ========== SEÇÃO: MODOS DE JOGO ========== -->
+    <div class="info-section">
+      <h3>🎯 Modos de Jogo</h3>
+      <div class="info-content">
+        
+        <!-- Modo Campanha -->
+        <div class="info-subsection">
+          <h4>🏆 Modo Campanha</h4>
+          <p><strong>Como jogar:</strong></p>
+          <ul>
+            <li>Comece na Fase 1 (ou escolha outra nas configurações)</li>
+            <li>Cada fase requer quebrar 10 × Número da Fase blocos</li>
+            <li>A velocidade aumenta a cada fase</li>
+            <li>Você tem 3 vidas para completar cada fase</li>
+            <li>Avance até a Fase 10 e além!</li>
+          </ul>
+          
+          <p><strong>Controles PC:</strong></p>
+          <ul>
+            <li>⬅️ ➡️ <strong>Setas</strong> ou <strong>A/D (WASD)</strong> ou <strong>Mouse</strong> - Mover raquete</li>
+            <li><strong>Espaço</strong> - Pausar/Retomar</li>
+            <li><strong>C</strong> - Ativar Raquete XL (padrão)</li>
+            <li><strong>V</strong> - Ativar Vida Extra (padrão)</li>
+            <li><strong>B</strong> - Ativar Bolinha Extra (padrão)</li>
+          </ul>
+          
+          <p><strong>Controles Mobile:</strong></p>
+          <ul>
+            <li>👆 <strong>Arraste o dedo</strong> - Mover raquete</li>
+            <li>✌️ <strong>Toque duplo</strong> - Pausar/Retomar</li>
+            <li>🎯 <strong>Botão flutuante 🎯</strong> - Ativar Raquete XL</li>
+            <li>❤️ <strong>Botão flutuante ❤️</strong> - Ativar Vida Extra</li>
+            <li>⚡ <strong>Botão flutuante ⚡</strong> - Ativar Bolinha Extra</li>
+            <li>⏸️ <strong>Botão flutuante ⏸️</strong> - Pausar/Retomar</li>
+          </ul>
+        </div>
+        
+        <!-- Modo Livre -->
+        <div class="info-subsection">
+          <h4>🆓 Modo Livre</h4>
+          <p><strong>Como jogar:</strong></p>
+          <ul>
+            <li>Jogue infinitamente sem fases pré-definidas</li>
+            <li>Blocos recarregam automaticamente quando acabam</li>
+            <li>A velocidade diminui levemente a cada recarga</li>
+            <li>Tente bater seu recorde pessoal!</li>
+            <li>Mesmos controles do Modo Campanha</li>
+          </ul>
+          
+          <p><strong>Controles PC e Mobile:</strong></p>
+          <ul>
+            <li>Idênticos ao Modo Campanha</li>
+            <li>Botões virtuais aparecem automaticamente no mobile</li>
+            <li>Configurações de teclas aplicam-se a ambos os modos</li>
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+    
+    <!-- ========== SEÇÃO: HABILIDADES ========== -->
+    <div class="info-section">
+      <h3>⚡ Habilidades Especiais</h3>
+      <div class="info-content">
+        <p>Destrua blocos brancos para ter 40% de chance de ganhar uma habilidade:</p>
+        
+        <div class="info-subsection">
+          <h4>🎯 Raquete XL (20 segundos)</h4>
+          <ul>
+            <li>Aumenta o tamanho da raquete em 3x</li>
+            <li>Facilita rebater a bolinha</li>
+            <li>Não pode ser usada com Bolinha Extra ativa</li>
+          </ul>
+        </div>
+        
+        <div class="info-subsection">
+          <h4>❤️ Vida Extra</h4>
+          <ul>
+            <li>Adiciona +1 vida ao contador</li>
+            <li>Use estrategicamente antes de morrer</li>
+            <li>Auto-ativa se você perder a última vida (se tiver armazenada)</li>
+          </ul>
+        </div>
+        
+        <div class="info-subsection">
+          <h4>⚡ Bolinha Extra</h4>
+          <ul>
+            <li>Adiciona uma segunda bolinha laranja</li>
+            <li>Raquete aumenta para 2x o tamanho</li>
+            <li>Se uma cair, volta ao normal</li>
+            <li>Não pode ser usada com Raquete XL ativa</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ========== SEÇÃO: DICAS E ESTRATÉGIAS ========== -->
+    <div class="info-section">
+      <h3>💡 Dicas e Estratégias</h3>
+      <div class="info-content">
+        <ul>
+          <li>🎯 <strong>Mire nos blocos brancos</strong> - Eles liberam habilidades valiosas</li>
+          <li>⏱️ <strong>Use habilidades no momento certo</strong> - Guarde para situações difíceis</li>
+          <li>🎮 <strong>Configure seus controles</strong> - Escolha o modo que for mais confortável</li>
+          <li>📱 <strong>Mobile</strong>: Use os botões flutuantes para facilitar as habilidades</li>
+          <li>🖱️ <strong>PC</strong>: Mouse oferece controle mais preciso</li>
+          <li>⚡ <strong>Velocidade</strong>: A bolinha fica mais rápida a cada bloco quebrado</li>
+          <li>❤️ <strong>Vida Extra Auto</strong>: É ativada automaticamente se você tiver armazenada</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- ========== SEÇÃO: SISTEMA DE FEEDBACK (ESTRELAS) ========== -->
+    <div class="feedback-section">
+      <h3>⭐ Avalie Sua Experiência</h3>
+      <p style="color: #a6f750; margin-bottom: 15px;">Clique nas estrelas para avaliar o jogo:</p>
+      
+      <div class="stars-container" id="starsContainer">
+        <span class="star" data-rating="1">★</span>
+        <span class="star" data-rating="2">★</span>
+        <span class="star" data-rating="3">★</span>
+        <span class="star" data-rating="4">★</span>
+        <span class="star" data-rating="5">★</span>
+      </div>
+      
+      <div class="feedback-message" id="feedbackMessage"></div>
+      
+      <div class="feedback-count" id="feedbackCount"></div>
+    </div>
+    
+         <button onclick="window.location.href='index.html'" style="margin-top: 30px;">Voltar ao Menu</button>
+
+       <div class="video-container">
+            <video autoplay loop muted playsinline>
+                <source src="arkanoid.mp4" type="video/mp4">
+                <source src="arkanoid.mp4" type="video/webm">
+            </video>
+        </div>
+      </div>
+
+
+  
+  <script>
+    // ========== SISTEMA DE FEEDBACK COM ESTRELAS ==========
+    const stars = document.querySelectorAll('.star');
+    const feedbackMessage = document.getElementById('feedbackMessage');
+    const feedbackCount = document.getElementById('feedbackCount');
+    
+    let currentRating = parseInt(localStorage.getItem('gameRating')) || 0;
+    let totalRatings = parseInt(localStorage.getItem('totalRatings')) || 0;
+    
+    // Mensagens de feedback baseadas na avaliação
+    const feedbackMessages = {
+      1: "😢 Que pena! Vamos melhorar!",
+      2: "😕 Obrigado pelo feedback! Vamos trabalhar nisso.",
+      3: "😊 Bom! Há sempre espaço para melhorias.",
+      4: "😄 Ótimo! Ficamos felizes que gostou!",
+      5: "🎉 Incrível! Obrigado por jogar!"
+    };
+    
+    // Carrega avaliação anterior se existir
+    function loadRating() {
+      if(currentRating > 0) {
+        updateStars(currentRating);
+        showFeedback(currentRating);
+        updateCount();
+      }
+    }
+    
+    // Atualiza as estrelas visualmente
+    function updateStars(rating) {
+      stars.forEach((star, index) => {
+        if(index < rating) {
+          star.classList.add('active');
+        } else {
+          star.classList.remove('active');
+        }
+      });
+    }
+    
+    // Mostra mensagem de feedback
+    function showFeedback(rating) {
+      feedbackMessage.textContent = feedbackMessages[rating];
+      feedbackMessage.classList.add('show');
+    }
+    
+    // Atualiza contador de avaliações
+    function updateCount() {
+      if(totalRatings > 0) {
+        feedbackCount.textContent = `Total de avaliações: ${totalRatings}`;
+      }
+    }
+    
+    // Event listeners para as estrelas
+    stars.forEach(star => {
+      star.addEventListener('click', function() {
+        const rating = parseInt(this.dataset.rating);
+        
+        // Atualiza avaliação atual
+        currentRating = rating;
+        totalRatings++;
+        
+        // Salva no localStorage
+        localStorage.setItem('gameRating', rating);
+        localStorage.setItem('totalRatings', totalRatings);
+        
+        // Atualiza visual
+        updateStars(rating);
+        showFeedback(rating);
+        updateCount();
+      });
+      
+      // Hover effect
+      star.addEventListener('mouseenter', function() {
+        const rating = parseInt(this.dataset.rating);
+        updateStars(rating);
+      });
+    });
+    
+    // Restaura estrelas ao sair do hover
+    document.querySelector('.stars-container').addEventListener('mouseleave', function() {
+      updateStars(currentRating);
+    });
+    
+    // Inicializa
+    loadRating();
+    updateCount();
+  </script>
+</body>
+</html>

@@ -1,0 +1,946 @@
+/* ========== RESET E BASE ========== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #222738;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    padding: 10px;
+    overflow-x: hidden;
+}
+
+/* ========== CANVAS RESPONSIVO (MENOR) ========== */
+canvas {
+    background: #181825;
+    border: 3px solid #a6f750;
+    display: block;
+    margin-bottom: 16px;
+    box-shadow: 0 0 20px #a6f75044;
+    transition: opacity 0.2s;
+    animation: canvasRGB 3s linear infinite;
+    width: 480px; /* Tamanho fixo menor */
+    height: 320px; /* Tamanho fixo menor */
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    canvas {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* ========== MENU CONTAINER EXTRA GRANDE (INDEX.HTML) ========== */
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #181825;
+    padding: 60px 50px; /* Padding aumentado */
+    border-radius: 20px;
+    box-shadow: 0 0 30px #a6f75044;
+    border: 4px solid #a6f750; /* Borda mais grossa */
+    animation: borderMenuRGB 3s linear infinite;
+    width: 95%; /* Ocupa 95% da largura */
+    max-width: 900px; /* Largura máxima aumentada */
+    min-height: 650px; /* Altura mínima maior */
+}
+
+.menu-container h2 {
+    font-size: clamp(2.5rem, 8vw, 4rem); /* Título bem maior */
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 0 0 20px rgba(166, 247, 80, 0.5);
+}
+
+.menu-container p {
+    font-size: clamp(1.2rem, 4vw, 1.6rem); /* Texto descritivo maior */
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* ========== BOTÕES EXTRA GRANDES PARA TOUCH ========== */
+.menu-container button {
+    margin: 12px 0; /* Mais espaçamento entre botões */
+    padding: 20px 40px; /* Botões bem grandes */
+    font-size: clamp(18px, 4vw, 24px); /* Texto bem legível */
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    color: #181825;
+    cursor: pointer;
+    transition: all 0.3s;
+    animation: buttonRGB 3s linear infinite;
+    width: 100%;
+    max-width: 500px; /* Botões bem largos */
+    min-height: 70px; /* Altura mínima para touch confortável */
+    touch-action: manipulation;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.menu-container button:hover,
+.menu-container button:active {
+    opacity: 0.85;
+    transform: scale(0.97);
+    box-shadow: 0 6px 15px rgba(166, 247, 80, 0.3);
+}
+
+/* Mobile específico para index */
+@media (max-width: 768px) {
+    .menu-container {
+        padding: 40px 25px;
+        width: 98%;
+        min-height: 500px;
+    }
+    
+    .menu-container h2 {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 15px;
+    }
+    
+    .menu-container p {
+        font-size: clamp(1rem, 4vw, 1.3rem);
+        margin-bottom: 25px;
+    }
+    
+    .menu-container button {
+        padding: 18px 35px;
+        font-size: clamp(16px, 4.5vw, 22px);
+        min-height: 65px;
+        margin: 10px 0;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .menu-container {
+        padding: 30px 20px;
+        width: 100%;
+        border-radius: 15px;
+    }
+    
+    .menu-container h2 {
+        font-size: 2rem;
+    }
+    
+    .menu-container p {
+        font-size: 1rem;
+    }
+    
+    .menu-container button {
+        padding: 16px 30px;
+        font-size: 18px;
+        min-height: 60px;
+        border-radius: 10px;
+    }
+}
+
+/* Tablet landscape e desktop */
+@media (min-width: 769px) and (max-width: 1200px) {
+    .menu-container {
+        max-width: 850px;
+        padding: 65px 55px;
+    }
+    
+    .menu-container button {
+        max-width: 550px;
+    }
+}
+
+/* Desktop grande */
+@media (min-width: 1201px) {
+    .menu-container {
+        max-width: 900px;
+        padding: 70px 60px;
+        min-height: 700px;
+    }
+    
+    .menu-container h2 {
+        font-size: 3.5rem;
+    }
+    
+    .menu-container p {
+        font-size: 1.5rem;
+    }
+    
+    .menu-container button {
+        padding: 22px 45px;
+        font-size: 22px;
+        min-height: 75px;
+        max-width: 550px;
+    }
+}
+
+/* ========== TOUCH FEEDBACK APRIMORADO ========== */
+.menu-container button:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+}
+
+/* Feedback visual para touch */
+@media (hover: none) and (pointer: coarse) {
+    .menu-container button {
+        -webkit-tap-highlight-color: rgba(166, 247, 80, 0.2);
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    
+    .menu-container button:active {
+        background-filter: brightness(1.2);
+        transform: scale(0.96);
+    }
+}
+
+/* ========== ACESSIBILIDADE TOUCH ========== */
+/* Garante área de toque mínima de 48x48px (recomendação WCAG) */
+.menu-container button {
+    min-width: 200px;
+}
+
+/* Previne zoom acidental em double-tap */
+.menu-container button {
+    touch-action: manipulation;
+}
+
+/* ========== VIDEO CONTAINER NO INDEX ========== */
+.menu-container .video-container {
+    margin-top: 50px;
+    max-width: 25vw; /* Um pouco maior no menu */
+    min-width: 180px;
+}
+
+@media (max-width: 768px) {
+    .menu-container .video-container {
+        max-width: 30vw;
+        min-width: 150px;
+        margin-top: 35px;
+    }
+}
+
+
+/* ========== ANIMAÇÕES ========== */
+@keyframes canvasRGB {
+    0% { border-color: rgb(255, 0, 0); }
+    16.6% { border-color: rgb(255, 127, 0); }
+    33.3% { border-color: rgb(255, 255, 0); }
+    50% { border-color: rgb(0, 255, 0); }
+    66.6% { border-color: rgb(0, 0, 255); }
+    83.3% { border-color: rgb(139, 0, 255); }
+    100% { border-color: rgb(255, 0, 0); }
+}
+
+@keyframes borderMenuRGB {
+    0% { border-color: rgb(255, 0, 0); }
+    16.6% { border-color: rgb(255, 127, 0); }
+    33.3% { border-color: rgb(255, 255, 0); }
+    50% { border-color: rgb(0, 255, 0); }
+    66.6% { border-color: rgb(0, 0, 255); }
+    83.3% { border-color: rgb(139, 0, 255); }
+    100% { border-color: rgb(255, 0, 0); }
+}
+
+@keyframes buttonRGB {
+    0% { background: rgb(255, 0, 0); }
+    16.6% { background: rgb(255, 127, 0); }
+    33.3% { background: rgb(255, 255, 0); }
+    50% { background: rgb(0, 255, 0); }
+    66.6% { background: rgb(0, 0, 255); }
+    83.3% { background: rgb(139, 0, 255); }
+    100% { background: rgb(255, 0, 0); }
+}
+
+/* ========== BOTÕES RESPONSIVOS ========== */
+button {
+    margin: 10px 0;
+    padding: 16px 32px; /* Botões maiores */
+    font-size: clamp(16px, 3.5vw, 20px); /* Texto maior */
+    border-radius: 8px;
+    border: none;
+    color: #181825;
+    cursor: pointer;
+    transition: all 0.2s;
+    animation: buttonRGB 3s linear infinite;
+    width: 100%;
+    max-width: 400px; /* Botões mais largos */
+    touch-action: manipulation;
+}
+
+button:hover,
+button:active {
+    opacity: 0.8;
+    transform: scale(0.95);
+}
+
+/* ========== INPUTS RESPONSIVOS ========== */
+input[type="number"],
+select {
+    padding: 10px;
+    font-size: clamp(14px, 3vw, 16px);
+    border-radius: 8px;
+    border: 2px solid #a6f750;
+    background: #222738;
+    color: white;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px 0;
+}
+
+label {
+    font-size: clamp(14px, 3vw, 16px);
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* ========== GAME CONTAINER COMPACTO ========== */
+.game-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px; /* Menor que antes */
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 480px;
+    padding: 10px;
+    background: rgba(24, 24, 37, 0.8);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: clamp(12px, 2.5vw, 16px);
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+    flex: 1;
+}
+
+.info-label {
+    font-size: clamp(10px, 2vw, 12px);
+    color: #a6f750;
+    margin-bottom: 4px;
+}
+
+.info-value {
+    font-size: clamp(14px, 3vw, 18px);
+    font-weight: bold;
+}
+
+/* ========== HABILIDADES RESPONSIVAS ========== */
+.abilities-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 480px;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+/* Mobile: Habilidades em grid 2x2 */
+@media (max-width: 768px) {
+    .abilities-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+}
+
+.ability {
+    background: rgba(24, 24, 37, 0.8);
+    padding: 8px;
+    border-radius: 8px;
+    border: 2px solid rgba(166, 247, 80, 0.3);
+    text-align: center;
+    min-width: 90px;
+    flex: 1;
+    font-size: clamp(10px, 2vw, 12px);
+}
+
+.ability-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+    font-size: clamp(11px, 2.2vw, 14px);
+}
+
+.ability-status {
+    color: #a6f750;
+    font-size: clamp(10px, 2vw, 12px);
+}
+
+.ability-hint {
+    font-size: clamp(8px, 1.8vw, 10px);
+    opacity: 0.7;
+    margin-top: 2px;
+}
+
+.ability-inactive {
+    opacity: 0.5;
+    border-color: rgba(166, 247, 80, 0.2);
+}
+
+.ability-ready {
+    border-color: #a6f750;
+    animation: pulse 1.5s infinite;
+}
+
+.ability-active {
+    border-color: #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* ========== BOTÃO VOLTAR AO MENU ========== */
+.back-button-container {
+    width: 100%;
+    max-width: 480px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.back-button {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px 24px;
+    font-size: clamp(14px, 3vw, 17px);
+}
+
+/* Mobile: Botão voltar distante das habilidades */
+@media (max-width: 768px) {
+    .back-button-container {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+}
+
+/* ========== VIDEO RESPONSIVO 20% ========== */
+.video-container {
+    width: 100%;
+    max-width: 20vw; /* 20% da largura da tela */
+    min-width: 150px; /* Mínimo de 150px */
+    margin-top: 40px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-self: center;
+}
+
+.video-container video {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid #a6f750;
+    box-shadow: 0 0 15px #a6f75044;
+    opacity: 0.8;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.video-container video:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* Mobile: vídeo um pouco maior mas ainda discreto */
+@media (max-width: 768px) {
+    .video-container {
+        max-width: 25vw; /* 25% no mobile */
+        min-width: 120px;
+    }
+}
+
+/* ========== CONFIG SECTIONS RESPONSIVAS ========== */
+.config-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(166, 247, 80, 0.1);
+    border: 1px solid #a6f750;
+    border-radius: 12px;
+    width: 100%;
+}
+
+.config-section h3 {
+    color: #a6f750;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: clamp(16px, 4vw, 18px);
+    border-bottom: 1px solid #a6f750;
+    padding-bottom: 10px;
+}
+
+/* ========== KEYBIND GROUPS RESPONSIVOS ========== */
+.keybind-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.keybind-label {
+    color: #a6f750;
+    font-size: clamp(12px, 2.5vw, 14px);
+    min-width: 120px;
+    font-weight: 500;
+    flex: 1;
+}
+
+.keybind-button {
+    padding: 10px 20px;
+    background: rgba(166, 247, 80, 0.2);
+    color: #a6f750;
+    border: 2px solid #a6f750;
+    border-radius: 8px;
+    font-size: clamp(14px, 3vw, 16px);
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 80px;
+    transition: all 0.3s;
+}
+
+.keybind-hint {
+    font-size: clamp(10px, 2vw, 12px);
+    color: #a6f750;
+    opacity: 0.7;
+    flex-basis: 100%;
+    text-align: center;
+}
+
+/* ========== CONTROL OPTIONS RESPONSIVAS ========== */
+.control-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.control-option {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(166, 247, 80, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.control-option:hover,
+.control-option:active {
+    background: rgba(166, 247, 80, 0.1);
+    transform: translateY(-2px);
+}
+
+.control-option.selected {
+    background: rgba(166, 247, 80, 0.2);
+    border-color: #a6f750;
+    box-shadow: 0 0 15px rgba(166, 247, 80, 0.3);
+}
+
+.control-option-icon {
+    font-size: clamp(24px, 5vw, 32px);
+    margin-bottom: 8px;
+}
+
+.control-option-title {
+    color: #a6f750;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: clamp(14px, 3vw, 16px);
+}
+
+.control-option-desc {
+    color: #a6f750;
+    opacity: 0.7;
+    font-size: clamp(10px, 2vw, 12px);
+}
+
+/* ========== BUTTON GROUP RESPONSIVO ========== */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.button-group button {
+    flex: 1;
+    min-width: 120px;
+}
+
+/* ========== FASE INFO RESPONSIVA ========== */
+.fase-info {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(166, 247, 80, 0.1);
+    border: 1px solid #a6f750;
+    border-radius: 8px;
+    color: #a6f750;
+    font-size: clamp(12px, 2.5vw, 14px);
+}
+
+.fase-info strong {
+    color: #a6f750;
+    display: block;
+    margin-bottom: 8px;
+    font-size: clamp(14px, 3vw, 16px);
+}
+
+/* ========== MESSAGES RESPONSIVAS ========== */
+.error-message,
+.success-message {
+    font-size: clamp(11px, 2.2vw, 12px);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.error-message {
+    color: #ff5555;
+    background: rgba(255, 85, 85, 0.1);
+    border: 1px solid #ff5555;
+}
+
+.success-message {
+    color: #a6f750;
+    background: rgba(166, 247, 80, 0.2);
+    border: 1px solid #a6f750;
+}
+
+/* ========== CONTAINER LAYOUT ========== */
+.container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+@media (min-width: 640px) {
+    .container {
+        max-width: 640px;
+    }
+}
+@media (min-width: 768px) {
+    .container {
+        max-width: 768px;
+    }
+}
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1024px;
+    }
+}
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1280px;
+    }
+}
+
+/* ========== UTILITY CLASSES ========== */
+.flex {
+    display: flex;
+}
+.flex-col {
+    flex-direction: column;
+}
+.items-center {
+    align-items: center;
+}
+.justify-center {
+    justify-content: center;
+}
+.justify-between {
+    justify-content: space-between;
+}
+.gap-4 {
+    gap: 4px;
+}
+.gap-8 {
+    gap: 8px;
+}
+.gap-16 {
+    gap: 16px;
+}
+
+.m-0 {
+    margin: 0;
+}
+.mt-8 {
+    margin-top: 8px;
+}
+.mb-8 {
+    margin-bottom: 8px;
+}
+.mx-8 {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.my-8 {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.p-0 {
+    padding: 0;
+}
+.py-8 {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.px-8 {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.py-16 {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+.px-16 {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.block {
+    display: block;
+}
+.hidden {
+    display: none;
+}
+
+/* ========== ACCESSIBILITY ========== */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+:focus-visible {
+    outline: 2px solid #a6f750;
+    outline-offset: 2px;
+}
+
+/* ========== MEDIA QUERIES ========== */
+
+/* CELULAR PEQUENO (até 320px) */
+@media (max-width: 320px) {
+    body {
+        padding: 5px;
+    }
+
+    .menu-container {
+        padding: 20px 15px;
+        max-width: 100%;
+    }
+
+    button {
+        padding: 10px 16px;
+    }
+
+    .control-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CELULAR MÉDIO (321px - 480px) */
+@media (min-width: 321px) and (max-width: 480px) {
+    .game-info {
+        justify-content: center;
+    }
+    
+    .menu-container {
+        max-width: 100%;
+    }
+}
+
+/* TABLET (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .menu-container {
+        max-width: 600px;
+    }
+
+    .game-container {
+        max-width: 500px;
+    }
+
+    canvas {
+        max-width: 480px;
+    }
+}
+
+/* NOTEBOOK/DESKTOP PEQUENO (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .menu-container {
+        max-width: 700px;
+    }
+
+    .game-container {
+        max-width: 500px;
+    }
+}
+
+/* DESKTOP GRANDE (1025px+) */
+@media (min-width: 1025px) {
+    body {
+        padding: 20px;
+    }
+
+    .menu-container {
+        max-width: 750px;
+    }
+
+    .game-container {
+        max-width: 500px;
+    }
+}
+
+/* ========== ORIENTAÇÃO LANDSCAPE NO MOBILE ========== */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        align-items: flex-start;
+        padding-top: 10px;
+    }
+
+    .menu-container {
+        padding: 15px;
+        min-height: auto;
+    }
+
+    canvas {
+        max-height: 250px;
+    }
+
+    .game-info {
+        font-size: 12px;
+    }
+}
+
+/* ========== TOUCH DEVICES ========== */
+@media (hover: none) and (pointer: coarse) {
+    button {
+        min-height: 44px;
+        touch-action: manipulation;
+    }
+
+    .keybind-button {
+        min-height: 44px;
+    }
+
+    .control-option {
+        min-height: 100px;
+    }
+}
+
+/* ========== HIGH DPI SCREENS ========== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    canvas {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* ========== MOBILE TOUCH BUTTONS ========== */
+#touch-buttons {
+    display: none;
+}
+
+/* Mostra botões touch apenas em dispositivos móveis */
+@media (hover: none) and (pointer: coarse) {
+    #touch-buttons {
+        display: flex !important;
+    }
+
+    #touch-buttons button {
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    #touch-buttons button:active {
+        transform: scale(0.9);
+        opacity: 0.7;
+    }
+}
+
+/* ========== TOUCH FEEDBACK PARA TODOS OS BOTÕES ========== */
+button {
+    -webkit-tap-highlight-color: rgba(166, 247, 80, 0.3);
+    user-select: none;
+    -webkit-user-select: none;
+    transition: all 0.2s ease;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.control-option {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.control-option:active {
+    transform: scale(0.95) !important;
+}
+
+.keybind-button {
+    -webkit-tap-highlight-color: rgba(166, 247, 80, 0.3);
+}
+
+/* ========== PREVINE SELEÇÃO DE TEXTO NO TOUCH ========== */
+canvas {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: none;
+}
+
+/* ========== SCROLL SUAVE NO MOBILE ========== */
+body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}

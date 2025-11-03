@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Configurações</title>
+  <link rel="stylesheet" href="estilo.css" />
+  <style>
+    .config-section {
+      margin: 25px 0;
+      padding: 20px;
+      background: rgba(166, 247, 80, 0.1);
+      border: 1px solid #a6f750;
+      border-radius: 12px;
+    }
+    
+    .config-section h3 {
+      color: #a6f750;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+      border-bottom: 1px solid #a6f750;
+      padding-bottom: 10px;
+    }
+    
+    .keybind-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 15px 0;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+    }
+    
+    .keybind-label {
+      color: #a6f750;
+      font-size: 14px;
+      min-width: 150px;
+      font-weight: 500;
+    }
+    
+    .keybind-button {
+      padding: 10px 20px;
+      background: rgba(166, 247, 80, 0.2);
+      color: #a6f750;
+      border: 2px solid #a6f750;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      min-width: 100px;
+      transition: all 0.3s;
+    }
+    
+    .keybind-button:hover {
+      background: rgba(166, 247, 80, 0.3);
+      transform: scale(1.05);
+    }
+    
+    .keybind-button.listening {
+      background: #a6f750;
+      color: #181825;
+      animation: pulse 1s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    .keybind-hint {
+      font-size: 12px;
+      color: #a6f750;
+      opacity: 0.7;
+    }
+    
+    .control-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .control-option {
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(166, 247, 80, 0.3);
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .control-option:hover {
+      background: rgba(166, 247, 80, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .control-option.selected {
+      background: rgba(166, 247, 80, 0.2);
+      border-color: #a6f750;
+      transform: scale(1);
+    }
+    
+    .control-option-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    
+    .control-option-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: #a6f750;
+      margin-bottom: 5px;
+    }
+    
+    .control-option-desc {
+      font-size: 12px;
+      color: #a6f750;
+      opacity: 0.7;
+    }
+    
+    .fase-select {
+      width: 100%;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      color: #a6f750;
+      border: 2px solid #a6f750;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+    
+    .fase-info {
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(166, 247, 80, 0.1);
+      border-left: 4px solid #a6f750;
+      border-radius: 4px;
+      color: #a6f750;
+      font-size: 14px;
+    }
+    
+    .success-message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #a6f750;
+      color: #181825;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    
+    .success-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .button-group button {
+      flex: 1;
+      min-width: 150px;
+    }
+    
+    @media (max-width: 768px) {
+      .control-options {
+        grid-template-columns: 1fr;
+      }
+      
+      .keybind-group {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .keybind-label {
+        min-width: auto;
+      }
+      
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .button-group button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-container">
+    <h2>⚙️ Configurações</h2>
+    
+    <!-- Fase Inicial -->
+    <div class="config-section">
+      <h3>🎯 Fase Inicial</h3>
+      <p style="color: #a6f750; margin-bottom: 15px;">Escolha a Fase Inicial:</p>
+      
+      <select id="faseSelect" class="fase-select">
+        <option value="1">Fase 1</option>
+        <option value="2">Fase 2</option>
+        <option value="3">Fase 3</option>
+        <option value="4">Fase 4</option>
+        <option value="5">Fase 5</option>
+        <option value="6">Fase 6</option>
+        <option value="7">Fase 7</option>
+        <option value="8">Fase 8</option>
+        <option value="9">Fase 9</option>
+        <option value="10">Fase 10</option>
+      </select>
+      
+      <div class="fase-info" id="faseInfo">
+        <strong>Informações da Fase Selecionada:</strong><br>
+        <span id="faseInfoText">Fase 1: Precisa quebrar 10 blocos</span>
+      </div>
+    </div>
+    
+    <!-- Controle de Movimentação -->
+    <div class="config-section">
+      <h3>🎮 Controle de Movimentação</h3>
+      <p style="color: #a6f750; margin-bottom: 15px;">Escolha como você quer controlar a raquete</p>
+      
+      <div class="control-options">
+        <div class="control-option" data-control="arrows">
+          <div class="control-option-icon">⬅️➡️</div>
+          <div class="control-option-name">Setas</div>
+          <div class="control-option-desc">← →</div>
+        </div>
+        
+        <div class="control-option" data-control="wasd">
+          <div class="control-option-icon">⌨️</div>
+          <div class="control-option-name">WASD</div>
+          <div class="control-option-desc">A D</div>
+        </div>
+        
+        <div class="control-option" data-control="mouse">
+          <div class="control-option-icon">🖱️</div>
+          <div class="control-option-name">Mouse</div>
+          <div class="control-option-desc">Movimento horizontal</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Teclas das Habilidades -->
+    <div class="config-section">
+      <h3>⌨️ Teclas das Habilidades</h3>
+      <p style="color: #a6f750; margin-bottom: 15px;">Clique no botão e pressione a tecla desejada</p>
+      
+      <div class="keybind-group">
+        <div class="keybind-label">🎯 Raquete XL:</div>
+        <button class="keybind-button" id="ability1Btn">C</button>
+        <div class="keybind-hint">(Padrão: C)</div>
+      </div>
+      
+      <div class="keybind-group">
+        <div class="keybind-label">❤️ Vida Extra:</div>
+        <button class="keybind-button" id="ability2Btn">V</button>
+        <div class="keybind-hint">(Padrão: V)</div>
+      </div>
+      
+      <div class="keybind-group">
+        <div class="keybind-label">⚡ Bolinha Extra:</div>
+        <button class="keybind-button" id="ability3Btn">B</button>
+        <div class="keybind-hint">(Padrão: B)</div>
+      </div>
+    </div>
+    
+    <!-- Mensagem de Sucesso -->
+    <div class="success-message" id="successMessage">
+      ✅ Configurações salvas com sucesso!
+    </div>
+    
+    <!-- Botões de Ação -->
+    <div class="button-group">
+      <button onclick="saveAll()">💾 Salvar Tudo</button>
+      <button onclick="resetAll()">🔄 Resetar Tudo</button>
+      <button onclick="window.location.href='index.html'">↩️ Voltar ao Menu</button>
+    </div>
+  </div>
+  
+  <script>
+    // ========== CARREGA CONFIGURAÇÕES SALVAS ==========
+    function loadConfig() {
+      // Carrega fase inicial
+      const faseInicial = localStorage.getItem('faseInicial') || '1';
+      document.getElementById('faseSelect').value = faseInicial;
+      updateFaseInfo(faseInicial);
+      
+      // Carrega modo de controle
+      const controlMode = localStorage.getItem('controlMode') || 'arrows';
+      document.querySelectorAll('.control-option').forEach(option => {
+        if(option.dataset.control === controlMode) {
+          option.classList.add('selected');
+        }
+      });
+      
+      // Carrega teclas das habilidades
+      const ability1Key = localStorage.getItem('ability1Key') || 'KeyC';
+      const ability2Key = localStorage.getItem('ability2Key') || 'KeyV';
+      const ability3Key = localStorage.getItem('ability3Key') || 'KeyB';
+      
+      document.getElementById('ability1Btn').textContent = getKeyName(ability1Key);
+      document.getElementById('ability2Btn').textContent = getKeyName(ability2Key);
+      document.getElementById('ability3Btn').textContent = getKeyName(ability3Key);
+      
+      document.getElementById('ability1Btn').dataset.code = ability1Key;
+      document.getElementById('ability2Btn').dataset.code = ability2Key;
+      document.getElementById('ability3Btn').dataset.code = ability3Key;
+    }
+    
+    // ========== ATUALIZA INFORMAÇÕES DA FASE ==========
+    function updateFaseInfo(fase) {
+      const blocosNecessarios = fase * 10;
+      document.getElementById('faseInfoText').textContent = 
+        `Fase ${fase}: Precisa quebrar ${blocosNecessarios} blocos`;
+    }
+    
+    // ========== SELECIONA FASE ==========
+    document.getElementById('faseSelect').addEventListener('change', function() {
+      updateFaseInfo(this.value);
+    });
+    
+    // ========== SELECIONA MODO DE CONTROLE ==========
+    document.querySelectorAll('.control-option').forEach(option => {
+      option.addEventListener('click', function() {
+        document.querySelectorAll('.control-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        
+        this.classList.add('selected');
+      });
+    });
+    
+    // ========== CONFIGURAÇÃO DE TECLAS ==========
+    let currentListeningButton = null;
+    
+    function getKeyName(code) {
+      const keyMap = {
+        'KeyA': 'A', 'KeyB': 'B', 'KeyC': 'C', 'KeyD': 'D', 'KeyE': 'E',
+        'KeyF': 'F', 'KeyG': 'G', 'KeyH': 'H', 'KeyI': 'I', 'KeyJ': 'J',
+        'KeyK': 'K', 'KeyL': 'L', 'KeyM': 'M', 'KeyN': 'N', 'KeyO': 'O',
+        'KeyP': 'P', 'KeyQ': 'Q', 'KeyR': 'R', 'KeyS': 'S', 'KeyT': 'T',
+        'KeyU': 'U', 'KeyV': 'V', 'KeyW': 'W', 'KeyX': 'X', 'KeyY': 'Y',
+        'KeyZ': 'Z',
+        'Digit1': '1', 'Digit2': '2', 'Digit3': '3', 'Digit4': '4',
+        'Digit5': '5', 'Digit6': '6', 'Digit7': '7', 'Digit8': '8',
+        'Digit9': '9', 'Digit0': '0',
+        'Space': 'Space', 'Enter': 'Enter', 'Escape': 'Esc'
+      };
+      
+      return keyMap[code] || code;
+    }
+    
+    document.querySelectorAll('.keybind-button').forEach(button => {
+      button.addEventListener('click', function() {
+        if(currentListeningButton) {
+          currentListeningButton.classList.remove('listening');
+          currentListeningButton.textContent = getKeyName(currentListeningButton.dataset.code);
+        }
+        
+        currentListeningButton = this;
+        this.classList.add('listening');
+        this.textContent = 'Pressione...';
+      });
+    });
+    
+    document.addEventListener('keydown', function(e) {
+      if(currentListeningButton) {
+        e.preventDefault();
+        
+        const code = e.code;
+        
+        if(code === 'Escape') {
+          currentListeningButton.classList.remove('listening');
+          currentListeningButton.textContent = getKeyName(currentListeningButton.dataset.code);
+          currentListeningButton = null;
+          return;
+        }
+        
+        currentListeningButton.dataset.code = code;
+        currentListeningButton.textContent = getKeyName(code);
+        currentListeningButton.classList.remove('listening');
+        currentListeningButton = null;
+      }
+    });
+    
+    // ========== SALVA TODAS AS CONFIGURAÇÕES ==========
+    function saveAll() {
+      const faseInicial = document.getElementById('faseSelect').value;
+      localStorage.setItem('faseInicial', faseInicial);
+      
+      const selectedControl = document.querySelector('.control-option.selected');
+      if(selectedControl) {
+        localStorage.setItem('controlMode', selectedControl.dataset.control);
+      }
+      
+      const ability1Code = document.getElementById('ability1Btn').dataset.code;
+      const ability2Code = document.getElementById('ability2Btn').dataset.code;
+      const ability3Code = document.getElementById('ability3Btn').dataset.code;
+      
+      localStorage.setItem('ability1Key', ability1Code);
+      localStorage.setItem('ability2Key', ability2Code);
+      localStorage.setItem('ability3Key', ability3Code);
+      
+      showSuccessMessage();
+    }
+    
+    // ========== RESETA TODAS AS CONFIGURAÇÕES ==========
+    function resetAll() {
+      if(confirm('Tem certeza que deseja resetar todas as configurações para o padrão?')) {
+        localStorage.removeItem('faseInicial');
+        localStorage.removeItem('controlMode');
+        localStorage.removeItem('ability1Key');
+        localStorage.removeItem('ability2Key');
+        localStorage.removeItem('ability3Key');
+        
+        loadConfig();
+        showSuccessMessage();
+      }
+    }
+    
+    // ========== MOSTRA MENSAGEM DE SUCESSO ==========
+    function showSuccessMessage() {
+      const message = document.getElementById('successMessage');
+      message.classList.add('show');
+      
+      setTimeout(() => {
+        message.classList.remove('show');
+      }, 3000);
+    }
+    
+    // ========== ✅ TOUCH SUPPORT PARA CONFIG.HTML ==========
+    (function() {
+      // Touch feedback para todos os botões
+      const allButtons = document.querySelectorAll('button');
+      
+      allButtons.forEach(button => {
+        button.addEventListener('touchstart', function(e) {
+          this.style.opacity = '0.6';
+          this.style.transform = 'scale(0.95)';
+        }, { passive: true });
+        
+        button.addEventListener('touchend', function(e) {
+          this.style.opacity = '1';
+          this.style.transform = 'scale(1)';
+        }, { passive: true });
+        
+        button.addEventListener('touchcancel', function(e) {
+          this.style.opacity = '1';
+          this.style.transform = 'scale(1)';
+        }, { passive: true });
+      });
+      
+      // Touch feedback para control-option
+      const controlOptions = document.querySelectorAll('.control-option');
+      
+      controlOptions.forEach(option => {
+        option.addEventListener('touchstart', function(e) {
+          if(!this.classList.contains('selected')) {
+            this.style.transform = 'scale(0.95)';
+          }
+        }, { passive: true });
+        
+        option.addEventListener('touchend', function(e) {
+          setTimeout(() => {
+            this.style.transform = this.classList.contains('selected') ? 'scale(1)' : 'translateY(-2px)';
+          }, 100);
+        }, { passive: true });
+        
+        option.addEventListener('touchcancel', function(e) {
+          this.style.transform = this.classList.contains('selected') ? 'scale(1)' : 'translateY(-2px)';
+        }, { passive: true });
+      });
+      
+      // Touch feedback para keybind-button
+      const keybindButtons = document.querySelectorAll('.keybind-button');
+      
+      keybindButtons.forEach(button => {
+        button.addEventListener('touchstart', function(e) {
+          if(!this.classList.contains('listening')) {
+            this.style.transform = 'scale(0.9)';
+          }
+        }, { passive: true });
+        
+        button.addEventListener('touchend', function(e) {
+          if(!this.classList.contains('listening')) {
+            setTimeout(() => {
+              this.style.transform = 'scale(1)';
+            }, 100);
+          }
+        }, { passive: true });
+        
+        button.addEventListener('touchcancel', function(e) {
+          if(!this.classList.contains('listening')) {
+            this.style.transform = 'scale(1)';
+          }
+        }, { passive: true });
+      });
+      
+      // Touch feedback para select
+      const selects = document.querySelectorAll('select');
+      
+      selects.forEach(select => {
+        select.addEventListener('touchstart', function(e) {
+          this.style.backgroundColor = 'rgba(166, 247, 80, 0.15)';
+        }, { passive: true });
+        
+        select.addEventListener('touchend', function(e) {
+          setTimeout(() => {
+            this.style.backgroundColor = '';
+          }, 200);
+        }, { passive: true });
+      });
+      
+    })();
+    
+    // ========== INICIALIZA CONFIGURAÇÕES ==========
+    loadConfig();
+  </script>
+</body>
+</html>
